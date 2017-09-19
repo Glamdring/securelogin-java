@@ -40,6 +40,7 @@ public class SecureLogin {
     private String email;
     private PublicKey publicKey;
     private String secret;
+    private String rawPublicKey;
     
     static {
         Security.addProvider(new EdDSASecurityProvider());
@@ -59,10 +60,10 @@ public class SecureLogin {
         String hmacSignature = parsedSignatures[1];
         
         String[] authKeysParsed = splitAndDecode(authKeys);
-        String publicKeyRaw = options.getPublicKey() != null ? options.getPublicKey() : authKeysParsed[0];
+        String rawPublicKey = options.getPublicKey() != null ? options.getPublicKey() : authKeysParsed[0];
         String hmacSecret = options.getSecret() != null ? options.getSecret() : authKeysParsed[1];
 
-        PublicKey publicKey = extractPublicKey(publicKeyRaw);
+        PublicKey publicKey = extractPublicKey(rawPublicKey);
         if (!verifySignature(message, signature, publicKey)) {
             throw new SecureLoginVerificationException(SecureLoginVerificationFailure.INVALID_SIGNATURE);
         }
@@ -101,6 +102,7 @@ public class SecureLogin {
         secureLogin.email = email;
         secureLogin.publicKey = publicKey;
         secureLogin.secret = hmacSecret;
+        secureLogin.rawPublicKey = rawPublicKey;
         
         return secureLogin;
     }
@@ -240,8 +242,10 @@ public class SecureLogin {
         this.secret = secret;
     }
 
+    public String getRawPublicKey() {
+        return rawPublicKey;
+    }
 
-    
     @Override
     public String toString() {
         return "SecureLogin [provider=" + provider + ", client=" + client + ", scope=" + scope + ", expiresAt="

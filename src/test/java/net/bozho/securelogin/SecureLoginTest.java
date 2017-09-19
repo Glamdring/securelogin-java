@@ -29,6 +29,7 @@ public class SecureLoginTest {
             assertThat(login.getProvider(), equalTo(DOMAIN));
             assertThat(login.getScope(), equalTo(Collections.emptyMap()));
             assertThat(login.getExpiresAt(), equalTo(LocalDateTime.of(2017, 6, 29, 10, 11)));
+            assertThat(login.getRawPublicKey(), equalTo("kdbjcc08YBKWdCY56lQJIi92wcGOW+KcMvbSgHN6WbU="));
         } catch (SecureLoginVerificationException e) {
             Assert.fail("Unexpected failure: " + e.getFailure());
         }
