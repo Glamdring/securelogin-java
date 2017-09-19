@@ -43,6 +43,11 @@ public class Options {
         return this;
     }
 
+    public Options setOrigins(Set<String> origins) {
+        this.origins = origins;
+        return this;
+    }
+
     public Set<String> getOrigins() {
         return origins;
     }
