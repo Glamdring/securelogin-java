@@ -9,3 +9,13 @@ SecureLogin login = SecureLogin.verify(token, Options.create(ALLOWED_ORIGIN_DOMA
 String publicKey = login.getRawPublicKey();
 // use public key to lookup the user in the database
 ```
+
+Maven dependency:
+
+```
+<dependencey>
+    <groupId>net.bozho.securelogin</groupId>
+    <artifactId>securelogin-java</artifactId>
+    <version>0.0.1</version>
+</dependency>
+```
